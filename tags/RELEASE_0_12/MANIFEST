@@ -1,0 +1,6 @@
+README
+MANIFEST
+Makefile.PL
+AuthTicket.pm
+test.pl
+Changes

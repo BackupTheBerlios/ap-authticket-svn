@@ -1,0 +1,43 @@
+Release 0.40
+   o update to use new Apache::Filter API (you need at least 1.012 now)
+   o Create Apache2::AuthTicket from copy of Apache::AuthTicket and ported to
+     mod_perl 2.0 API.  This is the first release that supports mod_perl2
+   o MP2 - use SQL::Abstract to generate queries
+
+Release 0.31
+   o Removed an email address from Changes file via owners request.
+
+Release 0.30
+   o Changed calls from to Digest::MD5->md5_hex to just Digest::MD5::md5_hex()
+     This causes md5 passwords generated with other md5() routines (PHP for 
+     example to fail).  Thanks to Steve Chadsey for spotting this.
+
+     ** NOTE ** MD5 passwords that worked with previous versions will not work
+     with this version due to the fact that md5_hex() was used incorrectly.  
+     Upgrading from previous versions will also invalidate any current tickets
+     because the ticket generation routines also were using md5_hex
+     incorrectly.
+
+Release 0.20
+   o Renamed module from Apache::TicketAccess to Apache::AuthTicket after
+     discovering that Apache::TicketAccess is distributed with the mod_perl
+     book examples.
+   o Adapted module to Apache::AuthCookie v2.011.  This module now
+     subclasses Apache::AuthCookie and relies on AuthCookie for all of the 
+     cookie login logic.  This was basically a complete rewrite.
+   o Split up query to fetch the server secret so that the LIMIT clause is
+     not needed (for Sybase ASE backends, thanks to Eivind Trondsen)
+   o Made DBI commit() only be called if AutoCommit is off. 
+     (silences a warn() for MySQL)
+   o Added support for md5 style passwords.
+   o Added support for crypt() style passwords.
+   o Added way to retrieve reason for login using
+     $r->subprocess_env("AuthTicketReason").
+   o Added support for Idle Timeout logouts via TicketIdleTimeout
+     configuration.
+   o Added "sample" directory with sql examples for setting up pgsql and mysql
+     backends, as well as httpd.conf samples.
+   o Removed libapreq dependency (AuthCookie does this stuff now)
+
+Relaese 0.10
+   o Initial public release: Apache::TicketAccess 0.10
